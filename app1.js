@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
-const ouyputPath = path.join(OUTPUT_DIR, "team.html");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
@@ -89,7 +89,14 @@ const ask = function(){
     if(res.another === "Yes"){
         ask();
     }else{
-        render(employeeArr)
+        const html = render(employeeArr);
+        return fs.writeFile(outputPath, html, function(err){
+            if(err){
+                return console.log(err);
+            }else{
+                console.log("success")
+            }
+        })
     }
 
     
